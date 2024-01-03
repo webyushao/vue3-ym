@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+</html>
+<script>
+//   输入：board = [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], word = "ABCCED"
+// 输出：true
+  const board = [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]]
+  const word = 'ABCCED'
+  let exist = function (board, word) {
+    // 终止条件
+    if (board.length === 0) {
+      return false
+    }
+    if (word.length === 0) {
+      return true
+    }
+    // 开始查找
+    let row = board.length // 定义这个board有几列
+    let column = board[0].length // 定义这个board有几行
+    for (let i = 0; i < row; i++) {
+      for (let j = 0; j < column;j++) {                                 
+                                                                        // [
+                                                                        //   ["A","B","C","E"],
+                                                                        //   ["S","F","C","S"],
+                                                                        //   ["A","D","E","E"]
+                                                                        // ]
+        // 每一个字母都可以作为起点搜索
+        const result = find(i, j, 0) // 0 就是当前查询的字母索引
+        if (result) {
+          return result
+        }
+      }
+    }
+
+    return false
+
+    function find (i, j, cur) {
+      // 终止条件
+      if (i >= row || i < 0) {
+        return false
+      }
+
+      if (j >= column || j < 0) {
+        return false
+      }
+
+      let letter = board[i][j]
+
+      if (letter !== word[cur]) {
+        return false
+      }
+
+      if (cur === word.length - 1) {
+        return true
+      }
+
+      board[i][j] = null // 选择当前的字母进行下一步
+      
+      // 进行下一步
+      const ret = find(i + 1, j, cur + 1)
+               || find(i - 1, j, cur + 1)
+               || find(i, j + 1, cur + 1)
+               || find(i, j - 1, cur + 1)
+
+      board[i][j] = letter // 回撤
+      
+      return ret
+    }
+  }
+  console.log(exist(board, word))
+  
+</script>

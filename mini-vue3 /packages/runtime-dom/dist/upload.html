@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <input type="file" id="fileInput">
+<button id="convertButton">转换为二进制</button>
+
+<script>
+document.getElementById('convertButton').addEventListener('click', function() {
+    const fileInput = document.getElementById('fileInput');
+    
+    if (fileInput.files.length > 0) {
+        const file = fileInput.files[0];
+        console.log(file)
+        const reader = new FileReader();
+        
+        reader.onload = function(e) {
+            const binaryData = e.target.result; // 这里是二进制数据
+            console.log(binaryData, 'binaryData')
+            const binary = new Uint8Array(binaryData);
+            console.log(binary, 'binary')
+            // 可以执行上传逻辑，使用 XMLHttpRequest、fetch 等发送二进制数据到服务器
+            // 例如，使用 fetch 发送数据到服务器
+            fetch('uploadEndpoint', {
+                method: 'POST',
+                body: binaryData
+            }).then(response => {
+                // 处理服务器的响应
+            }).catch(error => {
+                // 处理错误
+            });
+        };
+        
+        reader.readAsArrayBuffer(file); // 以二进制数组缓冲区的形式读取文件
+    }
+});
+</script>
+
+</body>
+</html>

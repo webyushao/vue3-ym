@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script type="module">
+        // import { ref, createRenderer, h, render, Text, Fragment, getCurrentInstance, onMounted } from '../../../node_modules/@vue/runtime-dom/dist/runtime-dom.esm-browser.js';
+        // import { ref, createRenderer, render, h, Text, onMounted, getCurrentInstance } from '../../../node_modules/@vue/runtime-dom/dist/runtime-dom.esm-browser.js'
+
+        import { h, render, Text, Fragment,getCurrentInstance, onMounted } from './runtime-dom.esm.js'
+        // 如何理解生命周期的，钩子，调用的。
+        // 将我们用户的方法放在不同的地方，等创建+销毁的时候会找到方法来调用。
+        // 生命周期就是将不同的函数放在实例上，在不同的地方调用。
+        const VueComponent = {
+          beforeCreate() {
+            console.log('beforeCreate')
+          },
+            setup () { // 创建前，创建后
+              console.log( 'setup')
+              onMounted(() => {
+                console.log(1)
+              })
+              onMounted(() => {
+                console.log(2)
+              })
+              return  h('div' , 'hello word')
+            }
+        }
+        render(h(VueComponent, {}), app)
+        // 这个的实现方案是 依赖收集
+        // 1. 在setup没执行前，我让当前的实例放在全局上
+        // 2. 调用setup的时候，内部调用的钩子就可以找到当前的实力，让实例将钩子收集起来。
+        // 3. setup执行完毕后 将当前实例还原
+
+
+    </script>
+</body>
+
+</html>

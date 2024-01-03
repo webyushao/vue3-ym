@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app"></div>
+</body>
+</html>
+<!-- <script src='../../../node_modules/@vue/reactivity/dist/reactivity.global.js'></script> -->
+<script src="./reactivity.global.js"></script>
+<script>
+  let waiting = false
+  const { effect, reactive } = VueReactivity;
+
+  const state = reactive({ flag: true, name: 'fw', age: 30, address: { num: 10} })
+  console.log(state, state.age)
+  let runner = effect(() => {
+    document.getElementById('app').innerHTML = state.age;
+  }, {
+    scheduler() { // 调度，如何更新自己决定
+      console.log('run')
+      if (!waiting) {
+        waiting = true
+        setTimeout(() => {
+          runner()
+          waiting = false
+        }, 0)
+      }
+    }
+  })
+
+  setTimeout(() => {
+    state.age = 31
+  }, 2000)
+</script>

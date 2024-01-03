@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width= , initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script src="./reactivity.global.js"></script>
+  <script type='module'>
+    const { effect, reactive, computed, watch, watchEffect, ref, toRef, toRefs, effectScope }  = VueReactivity;
+    const scope = effectScope()
+    scope.run(() => {
+      const state = reactive({ age: 30 })
+      effect(() => {
+        state.age = 31
+      })
+    })
+    scope.stop()
+  </script>
+</body>
+</html>

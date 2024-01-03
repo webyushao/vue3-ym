@@ -1,0 +1,16 @@
+{
+  "name": "@vue/runtime-core",
+  "module": "dist/runtime-core.esm.bundle.js",
+  "types": "dist/runtime-core.d.ts",
+  "files": [
+    "index.ts",
+    "dist"
+  ],
+  "bundleOptions": {
+    "name": "VueRuntimeCore",
+    "formats": [
+      "esm-bundle",
+      "cjs"
+    ]
+  }
+}

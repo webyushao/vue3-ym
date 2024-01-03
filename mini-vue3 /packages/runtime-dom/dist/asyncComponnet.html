@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app"></div>
+</body>
+</html>
+<script type='module'>
+  // import { defineAsyncComponent, h, render, Text } from '../../../node_modules/@vue/runtime-dom/dist/runtime-dom.esm-browser.js'
+  import {h, render, Text, defineAsyncComponent } from './runtime-dom.esm.js'
+
+  // 异步组件的好处是 如果配合用import（）语法，可以实现文件的拆分
+  // 类似于图片懒加载，我们可以先渲染一个空组件，当组件加载完毕在渲染真实的组件。 
+  let VueComponent = defineAsyncComponent(() => {
+    // return import('./component.js')
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve({
+          render() {
+            return h(Text, 'hello word')
+          }
+        })
+      }, 1000);
+    })
+  })
+  render(h(VueComponent), app)
+</script>

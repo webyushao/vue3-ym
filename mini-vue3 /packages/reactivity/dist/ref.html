@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">{{name}}</div>
+<script src='./reactivity.global.js'></script>
+<!-- <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script> -->
+</body>
+</html>
+<script type="module">
+  // const { effect, reactive, computed, watch, watchEffect, ref, toRef, toRefs } = Vue
+  const { effect, reactive, computed, watch, watchEffect, ref, toRef, toRefs}  = VueReactivity;
+  let flag = ref(true)
+  const obj = ref({ a: 1, b: 2})
+  const state = reactive({ name: 'yu', age: 30 })
+  let name = toRef(state, 'name')
+  console.log(name, 'name')
+
+  // let age = toRef(state, 'age')
+
+  // const { name, age } = toRefs(state)
+  // console.log(name.value, 'name', age.value, 'age')
+
+  // 一般情况下，用于基本数据类型。还有就是换引用数据类型的地址(换整个对象的时候可以采用)
+  // 比如说 obj = {}
+  watchEffect(() => { 
+    // app.innerHTML = flag.value ? state.name : state.age
+    // app.innerHTML = obj.value.a
+    // app.innerHTML = name.value
+  })
+  setTimeout(() => {
+    flag.value = !flag.value
+    // obj.value.a = 3
+    // name.value = 'ren'
+  }, 1000)
+  // return {
+  //   name
+  // }
+
+
+  // beforeCreated      setup
+  // create             setup
+  // beforeMount      onbeforeMount
+  // mounted            onmounted
+  // beforeUpdate       onBeforeUpdate
+  // update              onupdate
+  // beforeDestory      unbeforemounted
+  // destory            ununmounted
+</script>

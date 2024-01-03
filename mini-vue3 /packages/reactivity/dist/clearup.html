@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app"></div>
+</body>
+</html>
+<script src='./reactivity.global.js'></script>
+
+<script type="module">
+  const { effect, reactive, computed, watch }  = VueReactivity;
+  const state = reactive({name: 'ren', age: 30})
+  let timer = 3000
+  function getData(data) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(data)
+      }, timer-=1000);
+    })
+  }
+  let arr = []
+
+
+
+  // watch(() => state.name , async function (newValue) {
+  //   debugger
+  //   let flag = true
+  //   console.log(arr, state.name)
+  //   while(arr.length > 0) {
+  //     const cb = arr.shift()
+  //     console.log(cb)
+  //     cb()
+  //   }
+  //   console.log(state.name, flag)
+  //   arr.push(() => {
+  //     flag = false
+  //   })
+  //   const r = await getData(newValue)
+  //   if (flag) {
+  //     console.log(r, 'r')
+  //     app.innerHTML = r
+  //   }
+  // } )
+  watch(() => state.name, async function (newValue, oldValue, cleanup) {
+    let flag = true
+    cleanup(() => {
+      flag = false
+    })    
+    let r = await getData(newValue)
+    if (flag) {
+      app.innerHTML = r
+    }   
+  })
+  state.name = 1
+  state.name = 2
+
+</script>

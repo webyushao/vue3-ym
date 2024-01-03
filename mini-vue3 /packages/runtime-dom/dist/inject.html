@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app"></div>
+</body>
+</html>
+<script type="module">
+    import { provide, reactive, inject, createRenderer, render, h, Text, toRef } from '../../../node_modules/@vue/runtime-dom/dist/runtime-dom.esm-browser.js'
+    // import {h, render, Text } from './runtime-dom.esm.js'
+    // 组件的通信方式 父子， 兄弟，跨级通讯 
+    // props传递来通讯
+    // 子传父 ctx.emit
+    // 创建一个reactive对象来通讯
+    // 发布订阅模式
+    // 兄弟通信可以借助同一个父元素来
+    // attr可以进行属性的传递， slot也可以进行通讯。
+
+    //vue2中是一直向上查找，component.parent.parent
+    // vue3中只找父级
+    // provide和inject适合编写插件，不适合业务代码
+
+    // vue是递归渲染， 
+    const GrandSon = {
+      setup () {
+        const name = inject('name')
+        const age = inject('age', 30) // 如果上级组件没有给，则使用默认值
+        return function () {
+          return h('div', {}, h(Text, name.value + age))
+        }
+      }
+    }
+    const Son = {
+      render:()=> h(GrandSon)
+    }
+    
+    const App = {
+      // provide 就是将数据绑定到了自己身上
+      setup() {
+        const state = reactive({ name: 'yu' })
+
+        provide('name', toRef(state, 'name'))
+        setTimeout(() => {
+          state.name = 'ren'
+        }, 2000)
+        return () => {
+          return h(Son)
+        }
+      }
+    }
+
+    render(h(App), app)
+    /**
+ * @param {string} s
+ * @return {string}
+ */
+</script>

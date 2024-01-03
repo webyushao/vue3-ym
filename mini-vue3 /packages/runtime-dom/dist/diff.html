@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app"></div>
+  <script type='module'>
+    // runtime-dom 提供浏览器的api操作方法
+    // runtime-core 只是虚拟dom，会调用runtime-dom提供的方法
+    // import { createRenderer, h } from '../../../node_modules/@vue/runtime-dom/dist/runtime-dom.esm-browser.js'
+    import {h, render } from './runtime-dom.esm.js'
+    // render(h('div', [ // 第一种情况，左侧相同，右侧不同
+    //   h('li', { key: 'a' }, 'a'),
+    //   h('li', { key: 'b' }, 'b'),
+    // ]), app)
+    // setTimeout(() => {
+    //   render(h('div', [
+    //   h('li', { key: 'c' }, 'c'),
+    //   h('li', { key: 'a' }, 'a'),
+    //   h('li', { key: 'b' }, 'b'),
+    // ]), app)
+    // }, 1000)
+
+    // 第二种情况，右侧相同，开始比较
+    // render(h('div', [ 
+    //   h('li', { key: 'a' }, 'a'),
+    //   h('li', { key: 'b' }, 'b'),
+    //   h('li', { key: 'e' }, 'e'),
+    //   h('li', { key: 'd' }, 'd')
+    // ]), app)
+    // setTimeout(() => {
+    //   render(h('div', [
+    //   h('li', { key: 'a' }, 'a'),
+    //   h('li', { key: 'b' }, 'b'),
+    //   h('li', { key: 'c' }, 'c'),
+    //   h('li', { key: 'd' }, 'd'),
+    //   h('li', { key: 'e' }, 'e')
+    // ]), app)
+    // }, 1000)
+
+    // 第三种情况， 删除尾部的元素
+    // render(h('div', [ 
+    //   h('li', { key: 'a' }, 'a'),
+    //   h('li', { key: 'b' }, 'b'),
+    //   h('li', { key: 'c' }, 'c'),
+    //   h('li', { key: 'd' }, 'd')
+    // ]), app)
+    // setTimeout(() => {
+    //   render(h('div', [
+    //   h('li', { key: 'a' }, 'a'),
+    //   h('li', { key: 'b' }, 'b')
+    // ]), app)
+    // }, 1000)
+
+    // 第四种情况，前面插入元素
+    // render(h('div', [ 
+    //   h('li', { key: 'c' }, 'c'),
+    //   h('li', { key: 'd' }, 'd')
+    // ]), app)
+    // setTimeout(() => {
+    //   render(h('div', [
+    //   h('li', { key: 'a' }, 'a'),
+    //   h('li', { key: 'b' }, 'b'),
+    //   h('li', { key: 'c' }, 'c'),
+    //   h('li', { key: 'd' }, 'd')
+    // ]), app)
+    // }, 1000)
+
+    // 第五种情况，后面插入元素
+    // render(h('div', [ 
+    //   h('li', { key: 'a' }, 'a'),
+    //   h('li', { key: 'b' }, 'b')
+    // ]), app)
+    // setTimeout(() => {
+    //   render(h('div', [
+    //   h('li', { key: 'a' }, 'a'),
+    //   h('li', { key: 'b' }, 'b'),
+    //   h('li', { key: 'c' }, 'c'),
+    //   h('li', { key: 'd' }, 'd')
+    // ]), app)
+    // }, 1000)
+
+    // 第六种情况，后面插入元素
+    // render(h('div', [ 
+    //   h('li', { key: 'a' }, 'a'),
+    //   h('li', { key: 'b' }, 'b'),
+    //   h('li', { key: 'e' }, 'e'),
+    //   h('li', { key: 'f' }, 'f')
+    // ]), app)
+    // setTimeout(() => {
+    //   render(h('div', [
+    //   h('li', { key: 'a' }, 'a'),
+    //   h('li', { key: 'b' }, 'b'),
+    //   h('li', { key: 'c' }, 'c'),
+    //   h('li', { key: 'd' }, 'd'),
+    //   h('li', { key: 'e' }, 'e'),
+    //   h('li', { key: 'f' }, 'f')
+
+    // ]), app)
+    // }, 1000)
+
+    // 第⑦种情况， 中间错乱
+    render(h('div', [ 
+    h('li', { key: 'a' }, 'a'),
+      h('li', { key: 'b' }, 'b'),
+      h('li', { key: 'd' }, 'd'),
+      h('li', { key: 'e' }, 'e'),
+      h('li', { key: 'c' }, 'c'),
+      h('li', { key: 'f' }, 'f'),
+      h('li', { key: 'g' }, 'g')
+    ]), app)
+    setTimeout(() => {
+      render(h('div', [
+      h('li', { key: 'a' }, 'a'),
+      h('li', { key: 'b' }, 'b'),
+      h('li', { key: 'e' }, 'e'),
+      h('li', { key: 'c' }, 'c'),
+      h('li', { key: 'd' }, 'd'),
+      h('li', { key: 'h' }, 'h'),
+      h('li', { key: 'f' }, 'f'),
+      h('li', { key: 'g' }, 'g')
+    ]), app)
+    }, 1000)
+  </script>
+</body>
+</html>

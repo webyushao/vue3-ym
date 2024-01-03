@@ -1,0 +1,17 @@
+curl 'https://api-uat.longfor.com/mfp-pc-uat/a/channel/approve/add' \
+  -H 'Accept: application/json, text/plain, */*' \
+  -H 'Accept-Language: zh-CN,zh;q=0.9' \
+  -H 'Connection: keep-alive' \
+  -H 'Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryzN1RIoj9y86v3wzY' \
+  -H 'Cookie: EQID=24b585038d5f4c5aa15a396c0ae8440b; IM_ACCESS_TOKEN=eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJlODA5NGQzZS1mZmQxLTRkOTQtYmUyNi03OGM2ZDEwYTU1ODkiLCJpc3MiOiJkcmFnb25sZXR0ZXIzLjAiLCJzdWIiOiJ7XCJ1c2VyTmFtZVwiOlwicmVueXUxXCIsXCJ1c2VySWRcIjpcImRhMTQ3MWMzLTI5ZDktNDBlMS1hOWQyLTEyNWQ4Y2Q4ZjRjNFwifSIsImlhdCI6MTY5MzM3NzU1MiwiZXhwIjoxNjkzNDYzOTUyfQ.Z4yaDECQpa5riGEQUXbdbJBITITtbihSkUM6jmTDwyM; BIGipServer~SDN~TEST_DMZ_PAASJCFWPT_TCP80=rd20o00000000000000000000ffff0a0c810fo80; CASTGC=TGT-134-vsroBeO04uyZcpEniFvUQP3p1wF-9PxvsSdQKwXXvaF-KEZxKr0-0uTPoiNrHwvF52M-longhu; account=TGT-134-vsroBeO04uyZcpEniFvUQP3p1wF-9PxvsSdQKwXXvaF-KEZxKr0-0uTPoiNrHwvF52M-longhu; JSESSIONID=BE113EE80736CC7CBA8CEA65E074999F' \
+  -H 'Origin: https://mfppc-local.longfor.com:8080' \
+  -H 'Referer: https://mfppc-local.longfor.com:8080/personnel/join' \
+  -H 'Sec-Fetch-Dest: empty' \
+  -H 'Sec-Fetch-Mode: cors' \
+  -H 'Sec-Fetch-Site: same-site' \
+  -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36' \
+  -H 'sec-ch-ua: "Chromium";v="116", "Not)A;Brand";v="24", "Google Chrome";v="116"' \
+  -H 'sec-ch-ua-mobile: ?0' \
+  -H 'sec-ch-ua-platform: "macOS"' \
+  --data-raw $'------WebKitFormBoundaryzN1RIoj9y86v3wzY\r\nContent-Disposition: form-data; name="fileList"\r\n\r\n\r\n------WebKitFormBoundaryzN1RIoj9y86v3wzY\r\nContent-Disposition: form-data; name="remake"\r\n\r\n说明信息\r\n------WebKitFormBoundaryzN1RIoj9y86v3wzY\r\nContent-Disposition: form-data; name="file"; filename="C5人员入职蜜蜂派模板字段.xlsx"\r\nContent-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet\r\n\r\n\r\n------WebKitFormBoundaryzN1RIoj9y86v3wzY--\r\n' \
+  --compressed

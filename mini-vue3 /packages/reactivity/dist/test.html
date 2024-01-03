@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        const highestTimeoutId1 = setTimeout(() => {console.log(1)}, 1000);
+        const highestTimeoutId2 = setTimeout(() => {console.log(2)}, 2000);
+        const highestTimeoutId3 = setTimeout(() => {console.log(3)}, 3999);
+        console.log(`id1:${highestTimeoutId1}`, `id2:${highestTimeoutId2}`, `id3:${highestTimeoutId3}`); //2,3,4
+        var highestTimeoutId = setTimeout(";");
+        console.log(highestTimeoutId)
+          for (var i = 0 ; i < highestTimeoutId ; i++) {
+              clearTimeout(i); 
+          }
+    </script>
+    
+</body>
+</html>
+<script>
+  /**
+ * @param {string} digits
+ * @return {string[]}
+ */
+var letterCombinations = function(digits) {
+    let len = digits.length
+    const arr = ['', '', 'abc', 'def', 'ghi', 'jkl', 'mno', 'pqrs', 'tuv', 'wxyz']
+    // 终止条件
+    if (len <= 0) {
+        return []
+    }
+    if (len === 1) {
+        return arr[digits].split('')
+    }
+    let res = []
+    let path = []
+    backtrack(digits, len, 0)
+    return res
+    // 遍历
+    function backtrack (digits, l, i) {
+        if (path.length === l) {
+            res.push(path.join(''))
+            return
+        }
+
+        for (const v of arr[digits[i]]) { // ABC   def
+            path.push(v)// a
+            console.log(path, 'path')
+            backtrack(digits, l, i + 1) // ad ae af
+            path.pop()
+        }
+    }
+};
+// letterCombinations('23')
+
+const candidates = [2,3,6,7]  
+let target = 6
+var combinationSum = function(candidates, target) {
+  let res = []
+  let path = []
+  candidates.sort()
+  
+  backtrack(0, 0)
+  return res
+  function backtrack (i, sum) {
+    if (sum > target) {
+      return 
+    }
+    if (sum === target) {
+      res.push([...path])
+    }
+
+    for (let j = i; j < candidates.length; j++) {
+      const num = candidates[j]
+      if (sum + num > target) {
+        continue
+      }
+      sum += num
+      path.push(num)
+      backtrack(j, sum)
+      sum -= num
+      path.pop()
+    }
+  }
+}
+// combinationSum(candidates, target)
+
+
+var permute = function(nums) { // 全排列
+    let res = []
+    backTrack(res, [], nums)
+    return res
+};
+
+function backTrack (res, tmp, nums) {
+    console.log(tmp)
+    if (tmp.length === nums.length) {
+        res.push([...tmp])
+    }
+    for (let i = 0; i < nums.length; i++) {
+        if (tmp.includes(nums[i])) {
+            continue
+        }
+        tmp.push(nums[i])           //  [1]  backtrack [1, 2] backtrack return  [1]  
+        backTrack(res, tmp, nums)
+        tmp.pop()
+    }
+}
+console.log(permute([1,2]))
+</script>

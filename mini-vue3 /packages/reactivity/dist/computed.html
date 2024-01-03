@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app"></div>
+</body>
+</html>
+<!-- <script src='../../../node_modules/@vue/reactivity/dist/reactivity.global.js'></script> -->
+<script src="./reactivity.global.js"></script>
+<script>
+  const { effect, reactive, computed}  = VueReactivity;
+  const state = reactive({ firstName: 'ren', lastName: 'yu' })
+  const fullName = computed({ // 只有属性值变化了才会去取值
+    get () { // 相当于objectProperty中的get
+      return state.firstName + state.lastName
+    },
+    set (newValue) { // 相当于objectProperty中的set
+      console.log(newValue, 'newValue...')
+    }
+  })
+  const aliasName = computed(() => {
+    console.log('默认不会调，取值的时候才会调用')
+    return '*' + state.firstName
+  })
+  aliasName.value
+  effect(() => {
+    app.innerHTML = fullName.value
+  })
+  console.log(fullName.value)
+  setTimeout(() => {
+    // 变化了之后会收集computed中constructor中的effect
+    state.lastName = 'bao'
+  }, 1000)
+
+  // 计算属性中一定有一个缓冲标识，如果这个依赖又变化，要重新执行get，没有变化就不重新执行。
+  // dirty 脏的
+  // 计算属性是一个effect，依赖的属性变化了，会更新dirty。内部是默认执行，默认dirty是true，此时用户取值会执行此方法，
+  // 拿到返回结果返回并缓存起来，将dirty变成false
+  // 再次取值dirty为false，就去拿缓存的结果
+  // 如果依赖的值变化了，会更新dirty变为true，在取值的时候，就会执行，拿到新值
+</script>

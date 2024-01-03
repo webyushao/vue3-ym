@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app"></div>
+</body>
+</html>
+<script type='module'>
+  // import { h, render, Text } from '../../../node_modules/@vue/runtime-dom/dist/runtime-dom.esm-browser.js'
+  import {h, render, Text } from './runtime-dom.esm.js'
+
+  // 每创建一个组件，都是一个独立的源，如果是对象就共享了数据
+  const VueComponent = {
+    props: {
+      a: Number
+    },
+    data () {
+      return {
+        name: 'renyu',
+        age: 21
+      }
+    },
+    render () {
+      // setTimeout(() => {
+      //   this.age++
+      //   this.age++
+      // }, 1000)
+      console.log(this.$attrs, this.$props, '$attrs $props')
+      return h('div', [h(Text, this.age), h(Text, this.name)])
+    }
+  }
+  // type为object就是一个组件了
+  render(h(VueComponent, { a: 1, b: 2, c: 3 }), app)
+</script>

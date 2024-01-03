@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app"></div>
+</body>
+</html>
+<script src='./reactivity.global.js'></script>
+
+<script>
+  const { effect, reactive, computed, watch, watchEffect }  = VueReactivity;
+  const state = reactive({name: 'ren', age: 30})
+  debugger
+  watchEffect(() => {
+    document.getElementById('app').innerHTML = state.name
+  })
+  setTimeout(() => {
+    state.name = 'yu'
+  }, 1000)
+  // effect
+  // watch和watchEffect 都是基于effect
+  // 默认watchEffect 会立刻执行，会让用到的响应式数据收集当前的effect，数据变化后再次执行回调
+</script>
